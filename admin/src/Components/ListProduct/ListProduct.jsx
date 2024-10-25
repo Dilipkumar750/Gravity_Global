@@ -1,66 +1,66 @@
 import React, { useEffect, useState } from "react";
 import "./ListProduct.css";
-import cross_icon from '../Assets/cross_icon.png';
+import cross_icon from "../Assets/cross_icon.png";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  deleteProduct,
+  getAllProduct,
+  getImageUrl,
+} from "../../slices/productSlice";
+import { Link } from "react-router-dom";
 
 const ListProduct = () => {
-  const [allproducts, setAllProducts] = useState([]);
+  const dispatch = useDispatch();
 
-  // Fetch all products
-  const fetchInfo = () => { 
-    fetch('http://localhost:4000/allproducts')
-      .then((res) => res.json()) 
-      .then((data) => setAllProducts(data));
+  const { data, error } = useSelector((state) => state.product.getAllProduct);
+  const { data: deleteData } = useSelector(
+    (state) => state.product.deleteProduct
+  );
+
+  const removeProduct = (id) => {
+    dispatch(deleteProduct({ id }));
   };
 
-  // useEffect(() => {
-  //   fetchInfo();
-  // }, []);
-
-  // Remove product function
-  const removeProduct = async (id) => {
-    await fetch('http://localhost:4000/removeproduct', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id }),
-    });
-
-    // Refetch the products after removal
-    fetchInfo();
-  };
+  useEffect(() => {
+    dispatch(getAllProduct());
+  }, [dispatch, deleteData]);
 
   return (
     <div className="listproduct">
       <h1>All Products List</h1>
-      <div className="listproduct-format-main">
-        <p>Products</p>
-        <p>Title</p>
-        <p>Category</p>
-        <p>Subcategory</p> 
-        <p>Remove</p>
-      </div>
-      <div className="listproduct-allproducts">
-        <hr />
-        {allproducts.map((e) => (
-          <div key={e.id}>
-            <div className="listproduct-format-main listproduct-format">
-              <img className="listproduct-product-icon" src={e.image} alt={e.name} />
-              <p className="cartitems-product-title">{e.name}</p>
-              <p>{e.category}</p>
-              <p>{e.subcategory}</p> 
-              <img
-                className="listproduct-remove-icon"
-                onClick={() => removeProduct(e.id)}
-                src={cross_icon}
-                alt="Remove"
-              />
-            </div>
-            <hr />
-          </div>
-        ))}
-      </div>
+      <table style={{width:"100%"}}>
+        <thead>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Subcategory</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          {data &&
+            data.map((e) => {
+              const imageUrl = getImageUrl(e.image);
+              return (
+                <tr>
+                  <td>
+                    <img
+                      className="listproduct-product-icon"
+                      src={imageUrl}
+                      alt={e.title}
+                    />
+                  </td>
+                  <td>{e.title}</td>
+                  <td>{e.category}</td>
+                  <td>{e.subCategory}</td>
+                  <td>
+                    <button type="button" className="deleteBtn" onClick={() => removeProduct(e._id)}>Delete</button>
+                    <Link to={`/edit/${e._id}`}><button type="button" className="editBtn">Edit</button></Link>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
     </div>
   );
 };

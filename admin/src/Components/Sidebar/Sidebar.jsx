@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <div className='sidebar'>
-      <Link to='/addproduct' style={{ textDecoration: 'none' }}>
+      <Link to='/' style={{ textDecoration: 'none' }}>
         <div className="sidebar-item">
           <img src={add_product_icon} alt="Add Product Icon"  style={{ width: '50px', height: '50px' }}/>
           <p>Add Product</p>
