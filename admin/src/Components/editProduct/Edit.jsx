@@ -1,16 +1,21 @@
-import React, { useState } from "react";
-import "./AddProduct.css";
+import React, { useEffect, useState } from "react";
+import "../AddProduct/AddProduct.css";
 import upload_area from "../Assets/upload_area.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { addProduct } from "../../slices/productSlice";
+import { addProduct, getOneProduct, updateProduct } from "../../slices/productSlice";
+import { useParams } from "react-router-dom";
 
-const AddProduct = () => {
+
+const Edit = () => {
+    const {id} = useParams()
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.product.addProduct);
+  const { isLoading,data:updateData,error:updateError } = useSelector((state) => state.product.updateProduct);
+  const { data,error } = useSelector((state) => state.product.getOneProduct);
 
   const [image, setImage] = useState(false);
   const [loading, setLoading] = useState(false); // Loading state for button
   const [productDetails, setProductDetails] = useState({
+    _id:"",
     title: "",
     description: "",
     image: "",
@@ -117,7 +122,7 @@ const AddProduct = () => {
 
   // Function to add product
   const AddProduct = async () => {
-    dispatch(addProduct({ productDetails, image }));
+    dispatch(updateProduct({ productDetails, image }));
   };
 
   // Handle input change for text fields
@@ -129,6 +134,14 @@ const AddProduct = () => {
   const imageHandler = (e) => {
     setImage(e.target.files[0]);
   };
+
+  useEffect(() => {
+    dispatch(getOneProduct({id}))
+    if (data) {
+        setProductDetails(data)
+    }
+  }, [dispatch,id])
+  
   return (
     <div className="addproduct">
       <div className="addproduct-itemfield">
@@ -214,7 +227,7 @@ const AddProduct = () => {
       <button
         className="addproduct-btn"
         onClick={AddProduct}
-        disabled={isLoading} // Disable button during loading
+        disabled={isLoading}
       >
         {isLoading ? "Adding..." : "ADD"}
       </button>
@@ -222,4 +235,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default Edit;
