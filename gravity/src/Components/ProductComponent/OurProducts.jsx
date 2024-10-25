@@ -215,11 +215,11 @@ const CategorySection = () => {
                                     <p className="text-sm text-gray-600 mt-2">{product.description}</p>
                                 </div>
                                 <div className="flex justify-center">
-                                    <Link to={'/Contact'}>
-                                        <button className="bg-orange-500 text-white px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-orange-600">
-                                           Chat Now..
+                                    <a href='https://wa.me/6018464154'>
+                                        <button className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
+                                            Chat Now..
                                         </button>
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>

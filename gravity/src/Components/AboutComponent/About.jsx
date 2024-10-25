@@ -22,10 +22,7 @@ const About = () => {
         <div className="max-lg:order-1 max-lg:text-center sm:p-12 p-4" data-aos="fade-right">
           <h2 className="text-white lg:text-5xl text-4xl font-bold lg:!leading-[56px] items-center text-center">Our Company</h2>
           <p className="text-white mt-6 text-base leading-relaxed justify-center text-justify">
-            Gravity Global Export Sdn. Bhd. was incorporated on 11 November 2021 in Malaysia under the name Gravity Global Export Sdn. Bhd. with the registration number 202101037574 (1437874-D). The company engages in the retail sale of various products over the internet, the wholesale of a variety of goods without any particular specialization, and other retail sales in non-specialized stores.
-            <br /><br />
-            Gravity Global Export Sdn. Bhd. is a private limited company and has been operating for 3 years.
-          </p>
+          We are particularly good at just that—sourcing products from China, Taiwan, India, and Indonesia. We guide you through the process of getting quotes, evaluating factories, and managing the complexities of manufacturing and shipping. We ensure your goods are delivered when you want them—all for the best price, quality, and lead time.          </p>
           <button type="button"
             className="bg-black border-2 mt-12 text-white font-bold text-sm rounded-xl px-6 py-2.5 item-center">Get Started</button>
         </div>

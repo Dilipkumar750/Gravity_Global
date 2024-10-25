@@ -15,8 +15,8 @@ function TopHeader() {
 
       {/* Mobile number section */}
       <div className="d-flex align-items-center mb-2 mb-md-0 ms-md-3">
-        <a href="tel:+919150001089" className="text-white">
-          +91 91500 01000
+        <a href="tel:+916018464154" className="text-white">
+          +91 60184 64154
         </a>
       </div>
 
